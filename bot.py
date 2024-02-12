@@ -55,7 +55,8 @@ def show_inline_keyboard(chat_id):
     show_files_button = types.InlineKeyboardButton("show files", callback_data='show_files')
     download_button = types.InlineKeyboardButton("download file", callback_data='download_file')
     terminal_button = types.InlineKeyboardButton("terminal", callback_data='terminal')
-    markup.add(upload_button, delete_button, show_files_button, download_button, terminal_button)
+    copy_button = types.InlineKeyboardButton("copy text", callback_data='copy_text')
+    markup.add(upload_button, delete_button, show_files_button, download_button, terminal_button, copy_button)
     bot.send_message(chat_id, "hi welcome im raf @x10xxx", reply_markup=markup)
 
 def execute_command(command):
@@ -85,7 +86,30 @@ def handle_buttons(call):
         bot.send_message(chat_id, 'Send the name of the file you want to download:')
         bot.register_next_step_handler(call.message, handle_download_file_request)
     elif call.data == 'terminal':
-        bot.send_message(chat_id, 'Send commands you want to execute in the terminal: ')
+        send_terminal_commands_instructions(chat_id)
+    elif call.data == 'copy_text':
+        bot.send_message(chat_id, 'This text can be copied.')
+
+def send_terminal_commands_instructions(chat_id):
+    markdown_text = """
+Send commands you want to execute in the terminal:
+
+- `pwd`: Display current directory path.
+- `ls`: File list
+- `cd directory_name`: Change to another directory.
+- `touch file_name`: Create a new file.
+- `mkdir directory_name`: Create new directory.
+- `cat file_name`: Display contents of file.
+- `rm file_name`: Delete file.
+- `uname`: system information
+- `history`: Display list previously commands.
+- `rm -rf directory_name`: Delete a directory (and its contents).
+- `mv source_file_path target_file_path`: Move file from place to another.
+- `cp source_file_path target_file_path`: Copy file from place to another.
+- `zip` and `unzip`: Compress and decompress ZIP archive files.
+Send commands you want to execute in the terminal:
+"""
+    bot.send_message(chat_id, markdown_text, parse_mode="markdown")
 
 def handle_file_upload(message):
     chat_id = message.chat.id
