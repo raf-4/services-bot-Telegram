@@ -55,7 +55,7 @@ def show_inline_keyboard(chat_id):
     show_files_button = types.InlineKeyboardButton("show files", callback_data='show_files')
     download_button = types.InlineKeyboardButton("download file", callback_data='download_file')
     terminal_button = types.InlineKeyboardButton("terminal", callback_data='terminal')
-    copy_button = types.InlineKeyboardButton("copy text", callback_data='copy_text')
+    copy_button = types.InlineKeyboardButton("My channel", callback_data='copy_text')
     markup.add(upload_button, delete_button, show_files_button, download_button, terminal_button, copy_button)
     bot.send_message(chat_id, "hi welcome im raf @x10xxx", reply_markup=markup)
 
@@ -88,7 +88,7 @@ def handle_buttons(call):
     elif call.data == 'terminal':
         send_terminal_commands_instructions(chat_id)
     elif call.data == 'copy_text':
-        bot.send_message(chat_id, 'This text can be copied.')
+        bot.send_message(chat_id, '@l4eel')
 
 def send_terminal_commands_instructions(chat_id):
     markdown_text = """
